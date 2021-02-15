@@ -492,20 +492,17 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 					 return;
 				 }
 
-			contt+=aa/2;
 			
 		    for(unsigned i=0;i<aa;i+=2)
 			   {
-				  
+				  contt++;
 				  listBox1->Items->Add(gcnew System::String(ToBinary(a[i+1]))+"-"+gcnew System::String(ToBinary(a[i]))+(aa>2?"("+Convert::ToString(aa/2)+")":"")+"-"+Convert::ToString(contt));
-				  if(v)
-					  v1=true;
-				  else if(contt%10==0&&contt!=0)
+				  if(contt%11==0&&contt!=0)
 				      v=true;
 						
 	             if(!BitData(a[i],0)||!BitData(a[i+1],0))
 	                {	
-					   if(!v||!v1)
+					   if(!v)
 					   {
 						   listBox1->Items->Add("Error:Verific adelantada");
 						   timer1->Enabled=false;
@@ -515,12 +512,12 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 					   }
 					   else
 					   {
-					     v=v1=false;
+					     v=false;
 						 listBox1->Items->RemoveAt(listBox1->Items->Count-1);
 				         listBox1->Items->Add(gcnew System::String(ToBinary(a[i+1]))+"-"+gcnew System::String(ToBinary(a[i]))+(aa>2?"("+Convert::ToString(aa/2)+")":"")+"-("+Convert::ToString(contt)+")*");
 					   }
 		             }
-				 else if (v&&v1)
+				 else if (v)
 				 {
 					listBox1->Items->Add("Error:Verific atrasada");
 				    timer1->Enabled=false;
