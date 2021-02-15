@@ -20,20 +20,30 @@ namespace ESE_GRSMantenimiento {
 		PuertoSerie*p;
 		unsigned select;
 		double CONT,CONTT;
-		bool verif;
+		bool v,v1,esperand;
 		int contt;
 	private: System::Windows::Forms::Button^  button3;
 	private: System::Windows::Forms::Label^  label4;
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::ListBox^  listBox1;
+
+	private: Microsoft::VisualBasic::PowerPacks::RectangleShape^  rectangleShape5;
+	private: Microsoft::VisualBasic::PowerPacks::RectangleShape^  rectangleShape4;
+	private: Microsoft::VisualBasic::PowerPacks::RectangleShape^  rectangleShape3;
+	private: Microsoft::VisualBasic::PowerPacks::OvalShape^  ovalShape1;
+	private: System::Windows::Forms::ComboBox^  comboBox1;
+	private: System::Windows::Forms::ComboBox^  comboBox2;
+
+
 
 			 System::Windows::Forms::DataVisualization::Charting::Series^  series1 ;
 	public:
 		MyForm(void)
 		{	
 			CONT=CONTT=contt=select=0;\
-				verif=false;
+				v=v1=esperand=false;
 			p=new PuertoSerie();
 			InitializeComponent();
 			//
@@ -55,12 +65,12 @@ namespace ESE_GRSMantenimiento {
 			}
 		}
 private: System::Windows::Forms::Button^  button1; 
-	 System::Windows::Forms::TextBox^  textBox1;
-	 System::Windows::Forms::TextBox^  textBox2;
+
+
 	 System::Windows::Forms::Label^  label1;
 	 System::Windows::Forms::Label^  label2;
 	 Microsoft::VisualBasic::PowerPacks::ShapeContainer^  shapeContainer1;
-	 Microsoft::VisualBasic::PowerPacks::RectangleShape^  rectangleShape1;
+
 	 System::Windows::Forms::Label^  label3;
 	 System::Windows::Forms::Timer^  timer1;
 	 System::Windows::Forms::RadioButton^  radioButton1;
@@ -92,13 +102,14 @@ private: System::Windows::Forms::Button^  button1;
 			System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
 			System::Windows::Forms::DataVisualization::Charting::Series^  series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->shapeContainer1 = (gcnew Microsoft::VisualBasic::PowerPacks::ShapeContainer());
+			this->ovalShape1 = (gcnew Microsoft::VisualBasic::PowerPacks::OvalShape());
+			this->rectangleShape5 = (gcnew Microsoft::VisualBasic::PowerPacks::RectangleShape());
+			this->rectangleShape4 = (gcnew Microsoft::VisualBasic::PowerPacks::RectangleShape());
+			this->rectangleShape3 = (gcnew Microsoft::VisualBasic::PowerPacks::RectangleShape());
 			this->rectangleShape2 = (gcnew Microsoft::VisualBasic::PowerPacks::RectangleShape());
-			this->rectangleShape1 = (gcnew Microsoft::VisualBasic::PowerPacks::RectangleShape());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
@@ -114,39 +125,26 @@ private: System::Windows::Forms::Button^  button1;
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->chart1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(162, 261);
+			this->button1->Location = System::Drawing::Point(248, 229);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(98, 23);
+			this->button1->Size = System::Drawing::Size(76, 23);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"Concectar";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(176, 102);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(140, 20);
-			this->textBox1->TabIndex = 1;
-			this->textBox1->Text = L"COM2";
-			// 
-			// textBox2
-			// 
-			this->textBox2->Location = System::Drawing::Point(176, 167);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(140, 20);
-			this->textBox2->TabIndex = 2;
-			this->textBox2->Text = L"9600";
-			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(116, 170);
+			this->label1->Location = System::Drawing::Point(200, 182);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(54, 13);
 			this->label1->TabIndex = 3;
@@ -155,7 +153,7 @@ private: System::Windows::Forms::Button^  button1;
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(132, 105);
+			this->label2->Location = System::Drawing::Point(200, 112);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(38, 13);
 			this->label2->TabIndex = 4;
@@ -166,35 +164,53 @@ private: System::Windows::Forms::Button^  button1;
 			this->shapeContainer1->Location = System::Drawing::Point(0, 0);
 			this->shapeContainer1->Margin = System::Windows::Forms::Padding(0);
 			this->shapeContainer1->Name = L"shapeContainer1";
-			this->shapeContainer1->Shapes->AddRange(gcnew cli::array< Microsoft::VisualBasic::PowerPacks::Shape^  >(2) {this->rectangleShape2, 
-				this->rectangleShape1});
-			this->shapeContainer1->Size = System::Drawing::Size(426, 346);
+			this->shapeContainer1->Shapes->AddRange(gcnew cli::array< Microsoft::VisualBasic::PowerPacks::Shape^  >(5) {this->ovalShape1, 
+				this->rectangleShape5, this->rectangleShape4, this->rectangleShape3, this->rectangleShape2});
+			this->shapeContainer1->Size = System::Drawing::Size(566, 346);
 			this->shapeContainer1->TabIndex = 5;
 			this->shapeContainer1->TabStop = false;
+			// 
+			// ovalShape1
+			// 
+			this->ovalShape1->Location = System::Drawing::Point(161, 2);
+			this->ovalShape1->Name = L"ovalShape1";
+			this->ovalShape1->Size = System::Drawing::Size(253, 41);
+			// 
+			// rectangleShape5
+			// 
+			this->rectangleShape5->Location = System::Drawing::Point(169, 75);
+			this->rectangleShape5->Name = L"rectangleShape5";
+			this->rectangleShape5->Size = System::Drawing::Size(225, 194);
+			// 
+			// rectangleShape4
+			// 
+			this->rectangleShape4->Location = System::Drawing::Point(194, 162);
+			this->rectangleShape4->Name = L"rectangleShape4";
+			this->rectangleShape4->Size = System::Drawing::Size(172, 49);
+			// 
+			// rectangleShape3
+			// 
+			this->rectangleShape3->Location = System::Drawing::Point(194, 95);
+			this->rectangleShape3->Name = L"rectangleShape3";
+			this->rectangleShape3->Size = System::Drawing::Size(172, 49);
 			// 
 			// rectangleShape2
 			// 
 			this->rectangleShape2->Location = System::Drawing::Point(7, 38);
 			this->rectangleShape2->Name = L"rectangleShape2";
-			this->rectangleShape2->Size = System::Drawing::Size(49, 254);
+			this->rectangleShape2->Size = System::Drawing::Size(49, 255);
 			this->rectangleShape2->Visible = false;
-			// 
-			// rectangleShape1
-			// 
-			this->rectangleShape1->Location = System::Drawing::Point(81, 38);
-			this->rectangleShape1->Name = L"rectangleShape1";
-			this->rectangleShape1->Size = System::Drawing::Size(259, 256);
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Italic_IV50", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->label3->Font = (gcnew System::Drawing::Font(L"Italic_IV50", 8, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(132, 9);
+			this->label3->Location = System::Drawing::Point(195, 15);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(174, 16);
+			this->label3->Size = System::Drawing::Size(180, 16);
 			this->label3->TabIndex = 6;
-			this->label3->Text = L"ESE_GRS-Mantenimento";
+			this->label3->Text = L"ESE_GRS-Mantenimiento";
 			// 
 			// timer1
 			// 
@@ -278,7 +294,7 @@ private: System::Windows::Forms::Button^  button1;
 			// button2
 			// 
 			this->button2->ForeColor = System::Drawing::Color::DarkRed;
-			this->button2->Location = System::Drawing::Point(388, 311);
+			this->button2->Location = System::Drawing::Point(537, 315);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(26, 25);
 			this->button2->TabIndex = 14;
@@ -300,7 +316,7 @@ private: System::Windows::Forms::Button^  button1;
 			chartArea1->AxisY->MajorTickMark->Enabled = false;
 			chartArea1->Name = L"ChartArea1";
 			this->chart1->ChartAreas->Add(chartArea1);
-			this->chart1->Location = System::Drawing::Point(349, 115);
+			this->chart1->Location = System::Drawing::Point(528, 3);
 			this->chart1->Name = L"chart1";
 			this->chart1->Palette = System::Windows::Forms::DataVisualization::Charting::ChartColorPalette::None;
 			series1->BackHatchStyle = System::Windows::Forms::DataVisualization::Charting::ChartHatchStyle::DiagonalBrick;
@@ -312,7 +328,7 @@ private: System::Windows::Forms::Button^  button1;
 			series1->Legend = L"Legend1";
 			series1->Name = L"Series1";
 			this->chart1->Series->Add(series1);
-			this->chart1->Size = System::Drawing::Size(74, 74);
+			this->chart1->Size = System::Drawing::Size(35, 38);
 			this->chart1->TabIndex = 15;
 			this->chart1->Text = L"chart1";
 			this->chart1->Visible = false;
@@ -320,7 +336,7 @@ private: System::Windows::Forms::Button^  button1;
 			// button3
 			// 
 			this->button3->ForeColor = System::Drawing::Color::DodgerBlue;
-			this->button3->Location = System::Drawing::Point(17, 261);
+			this->button3->Location = System::Drawing::Point(17, 252);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(26, 23);
 			this->button3->TabIndex = 16;
@@ -332,27 +348,27 @@ private: System::Windows::Forms::Button^  button1;
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(303, 302);
+			this->label4->Location = System::Drawing::Point(275, 324);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(13, 13);
+			this->label4->Size = System::Drawing::Size(23, 13);
 			this->label4->TabIndex = 17;
-			this->label4->Text = L"0";
+			this->label4->Text = L"Y:0";
 			this->label4->Visible = false;
 			// 
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(303, 324);
+			this->label5->Location = System::Drawing::Point(450, 324);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(13, 13);
+			this->label5->Size = System::Drawing::Size(20, 13);
 			this->label5->TabIndex = 18;
-			this->label5->Text = L"0";
+			this->label5->Text = L"0 º";
 			this->label5->Visible = false;
 			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(100, 317);
+			this->label6->Location = System::Drawing::Point(100, 324);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(23, 13);
 			this->label6->TabIndex = 19;
@@ -362,18 +378,52 @@ private: System::Windows::Forms::Button^  button1;
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(200, 317);
+			this->label7->Location = System::Drawing::Point(521, 292);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(13, 13);
 			this->label7->TabIndex = 20;
 			this->label7->Text = L"0";
 			this->label7->Visible = false;
 			// 
+			// listBox1
+			// 
+			this->listBox1->FormattingEnabled = true;
+			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(1) {L"Esperando datos..."});
+			this->listBox1->Location = System::Drawing::Point(411, 38);
+			this->listBox1->Name = L"listBox1";
+			this->listBox1->ScrollAlwaysVisible = true;
+			this->listBox1->Size = System::Drawing::Size(155, 251);
+			this->listBox1->TabIndex = 21;
+			this->listBox1->Visible = false;
+			// 
+			// comboBox1
+			// 
+			this->comboBox1->FormattingEnabled = true;
+			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(5) {L"COM1", L"COM2", L"COM3", L"COM4", L"COM5"});
+			this->comboBox1->Location = System::Drawing::Point(257, 109);
+			this->comboBox1->Name = L"comboBox1";
+			this->comboBox1->Size = System::Drawing::Size(95, 21);
+			this->comboBox1->TabIndex = 22;
+			this->comboBox1->Text = L"COM2";
+			// 
+			// comboBox2
+			// 
+			this->comboBox2->FormattingEnabled = true;
+			this->comboBox2->Items->AddRange(gcnew cli::array< System::Object^  >(2) {L"9600", L"115200"});
+			this->comboBox2->Location = System::Drawing::Point(257, 179);
+			this->comboBox2->Name = L"comboBox2";
+			this->comboBox2->Size = System::Drawing::Size(95, 21);
+			this->comboBox2->TabIndex = 23;
+			this->comboBox2->Text = L"9600";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(426, 346);
+			this->ClientSize = System::Drawing::Size(566, 346);
+			this->Controls->Add(this->comboBox2);
+			this->Controls->Add(this->comboBox1);
+			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->label5);
@@ -390,13 +440,11 @@ private: System::Windows::Forms::Button^  button1;
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->shapeContainer1);
 			this->MaximizeBox = false;
-			this->MaximumSize = System::Drawing::Size(442, 385);
-			this->MinimumSize = System::Drawing::Size(442, 385);
+			this->MaximumSize = System::Drawing::Size(582, 385);
+			this->MinimumSize = System::Drawing::Size(582, 385);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->chart1))->EndInit();
@@ -406,12 +454,11 @@ private: System::Windows::Forms::Button^  button1;
 		}
 #pragma endregion
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-			
+		   
 				 msclr::interop::marshal_context context;
-				 const char*c1=context.marshal_as<const char*>(textBox1->Text);
-				 const char*c2=context.marshal_as<const char*>(textBox2->Text);
-				 
-				 p=new PuertoSerie(textBox1->Text,textBox2->Text);
+				 const char*c1=context.marshal_as<const char*>(comboBox1->Text);
+				 const char*c2=context.marshal_as<const char*>(comboBox2->Text);
+				 p=new PuertoSerie(comboBox1->Text,comboBox2->Text);
 				 if(p->Error())
 				 { 
 					 System::Windows::Forms::MessageBox::Show(gcnew String(p->ErrorStr()));
@@ -423,44 +470,69 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 				 }
 			 
 		}
- 
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 			 char*a=p->Recibir();
+			 
 			 if(a!=NULL)
 			 {
-			 if(strlen(a)%2!=0)
+				 if(!esperand)
+					 {
+					 listBox1->Items->RemoveAt(listBox1->Items->Count-1);
+					 esperand=true;
+					 }
+
+
+			 unsigned aa=strlen(a);
+			 if(aa%2!=0)
 				 {
+					 
 					 System::Windows::Forms::MessageBox::Show(gcnew String(Convert::ToString(strlen(a))+"::Existen errores a la hora de leer el contenido del puerto serie\nAsegurese de estar conectando el despositivo adecuado para este Mantenimiento"));
-			         ponerNewSeries(select);
+					 timer1->Enabled=false;
+					 disable();
 					 return;
 				 }
 
-			contt+=strlen(a)/2;
+			contt+=aa/2;
 			
-		    for(unsigned i=0;i<strlen(a);i+=2)
+		    for(unsigned i=0;i<aa;i+=2)
 			   {
-				 bool err=false;
+				  
+				  listBox1->Items->Add(gcnew System::String(ToBinary(a[i+1]))+"-"+gcnew System::String(ToBinary(a[i]))+(aa>2?"("+Convert::ToString(aa/2)+")":"")+"-"+Convert::ToString(contt));
+				  if(v)
+					  v1=true;
+				  else if(contt%10==0&&contt!=0)
+				      v=true;
+						
 	             if(!BitData(a[i],0)||!BitData(a[i+1],0))
 	                {	
-						contt--;
-						err=true; 
-		             if(contt%10!=0)
-			             System::Windows::Forms::MessageBox::Show(gcnew String("Error:Perdidad de datos"));      
-					 else if(verif)
-						 System::Windows::Forms::MessageBox::Show(gcnew String("Error:Se ha recivido varias veces el mensaje de verificacion"));  
-					 else
-						 verif=true; 
-	                 }
-				 else if((contt-1)%10==0 && !verif &&contt!=1)
-					   System::Windows::Forms::MessageBox::Show(gcnew String("Error:No ha llegado el mensaje de verificacione"));  
-				 else if(verif)
-					 verif=false;
-		                 
-
-
-		            if(!err)
-		               ponerSerie(a,i,select);
-		       }
+					   if(!v||!v1)
+					   {
+						   listBox1->Items->Add("Error:Verific adelantada");
+						   timer1->Enabled=false;
+						   disable();
+						   System::Windows::Forms::MessageBox::Show("Error:Adelantado mensaje de verificacion,posible perdida de datos");
+						   return;
+					   }
+					   else
+					   {
+					     v=v1=false;
+						 listBox1->Items->RemoveAt(listBox1->Items->Count-1);
+				         listBox1->Items->Add(gcnew System::String(ToBinary(a[i+1]))+"-"+gcnew System::String(ToBinary(a[i]))+(aa>2?"("+Convert::ToString(aa/2)+")":"")+"-("+Convert::ToString(contt)+")*");
+					   }
+		             }
+				 else if (v&&v1)
+				 {
+					listBox1->Items->Add("Error:Verific atrasada");
+				    timer1->Enabled=false;
+					disable();
+					System::Windows::Forms::MessageBox::Show("Error:No ha llegado a tiempo el mensaje de verificacion\nAsegure q se manda despues del 10mo dato el mensaje de verificacion");
+					return;
+				 }
+                
+				
+				 ponerSerie(a,i,select);
+		            
+			  }
 			}
 }
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -475,6 +547,14 @@ bool BitData(char Byte,unsigned posttion)
 		return 0;
 	return 1;
 
+}
+char*ToBinary(char Character){
+    char*Binary=new char[9];
+	Binary[8]=0;
+	for(unsigned i=0,y=7;i<8;i++,y--)
+		Binary[i]=BitData(Character,y)?'1':'0';
+	return Binary;
+	
 }
 void ponerSerie(char*Datos,unsigned i,unsigned Select){
 	if(BitData(Datos[i],Select+2))
@@ -493,8 +573,8 @@ void ponerSerie(char*Datos,unsigned i,unsigned Select){
 								
 				
 				}
-	label4->Text=Convert::ToString(CONT);
-	label5->Text=Convert::ToString(CONT*0.9);
+	label4->Text="Y:"+Convert::ToString(CONT);
+	label5->Text=Convert::ToString(CONT*0.9)+" º";
 	label6->Text="X:"+Convert::ToString(CONTT);
 	label7->Text=Convert::ToString(contt);
 
@@ -514,9 +594,13 @@ void cargarInterfas(bool a){
 					{
 					label1->Visible=label1->Visible;
 					label2->Visible=false;
-					textBox1->Visible=false;
-					textBox2->Visible=false;
-					rectangleShape1->Visible=false;
+					comboBox1->Visible=false;
+					comboBox2->Visible=false;
+					ovalShape1->Visible=false;
+					rectangleShape2->Visible=false;
+					rectangleShape3->Visible=false;
+					rectangleShape4->Visible=false;
+					rectangleShape5->Visible=false;
 					button1->Visible=false;
 					radioButton1->Visible=true;
 					radioButton2->Visible=true;
@@ -530,7 +614,8 @@ void cargarInterfas(bool a){
 					label4->Visible=true;
 					label5->Visible=true;
 					label6->Visible=true;
-					label7->Visible=true;					
+					label7->Visible=true;			
+					listBox1->Visible=true;
 					chart1->Location = System::Drawing::Point(68, 38);
 			        chart1->Size = System::Drawing::Size(346, 255);
 					chart1->Visible=true;
@@ -540,9 +625,13 @@ void cargarInterfas(bool a){
 					{
 				    label1->Visible=true;
 					label2->Visible=true;
-					textBox1->Visible=true;
-					textBox2->Visible=true;
-					rectangleShape1->Visible=true;
+					comboBox1->Visible=true;
+					comboBox2->Visible=true;
+					ovalShape1->Visible=true;
+					rectangleShape2->Visible=true;
+					rectangleShape3->Visible=true;
+					rectangleShape4->Visible=true;
+					rectangleShape5->Visible=true;
 					button1->Visible=true;
 					radioButton1->Visible=false;
 					radioButton2->Visible=false;
@@ -556,9 +645,19 @@ void cargarInterfas(bool a){
 					label5->Visible=false;
 					label6->Visible=false;
 					label7->Visible=false;
+					listBox1->Visible=false;
 					rectangleShape2->Visible=false;
 					chart1->Visible=false;
 					timer1->Enabled=false;
+					enable();
+					v=v1=esperand=false;
+					listBox1->Items->Clear();
+					listBox1->Items->Add("Esperando datos...");
+					CONT=CONTT=contt=0;
+					label4->Text="Y:"+Convert::ToString(CONT);
+	                label5->Text=Convert::ToString(CONT*0.9)+" º";
+	                label6->Text="X:"+Convert::ToString(CONTT);
+	                label7->Text=Convert::ToString(contt);
 					}
 
 			}	
@@ -568,6 +667,39 @@ void Reset(){
 	label5->Text=Convert::ToString(CONT*0.9);
 	label6->Text="X:"+Convert::ToString(CONTT);
 	label7->Text=Convert::ToString(contt);
+}
+void enable(){
+	radioButton1->Enabled=true;
+					radioButton2->Enabled=true;
+					radioButton3->Enabled=true;
+					radioButton4->Enabled=true;
+					radioButton5->Enabled=true;
+					radioButton6->Enabled=true;
+					button3->Enabled=true;
+					label4->Enabled=true;
+					label5->Enabled=true;
+					label6->Enabled=true;
+					label7->Enabled=true;
+					listBox1->Enabled=true;
+					rectangleShape2->Enabled=true;
+					chart1->Enabled=true;
+}
+void disable(){
+      	            radioButton1->Enabled=false;
+					radioButton2->Enabled=false;
+					radioButton3->Enabled=false;
+					radioButton4->Enabled=false;
+					radioButton5->Enabled=false;
+					radioButton6->Enabled=false;
+					button3->Enabled=false;
+					label4->Enabled=false;
+					label5->Enabled=false;
+					label6->Enabled=false;
+					label7->Enabled=false;
+					listBox1->Enabled=false;
+					rectangleShape2->Enabled=false;
+					chart1->Enabled=false;
+					
 }
 private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 			 if(radioButton1->Checked)
