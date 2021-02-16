@@ -496,7 +496,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 		    for(unsigned i=0;i<aa;i+=2)
 			   {
 				  contt++;
-				  listBox1->Items->Add(gcnew System::String(ToBinary(a[i+1]))+"-"+gcnew System::String(ToBinary(a[i]))+(aa>2?"("+Convert::ToString(aa/2)+")":"")+"-"+Convert::ToString(contt));
+				  listBox1->Items->Add(gcnew System::String(ToBinary(a[i+1]))+"-"+gcnew System::String(ToBinary(a[i]))+(aa>2?"("+Convert::ToString(i/2+1)+"/"+Convert::ToString(aa/2)+")"+"("+aa+")":"")+"-"+Convert::ToString(contt));
 				  if(contt%11==0&&contt!=0)
 				      v=true;
 						
