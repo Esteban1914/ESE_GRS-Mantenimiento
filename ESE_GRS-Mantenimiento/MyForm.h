@@ -20,7 +20,8 @@ namespace ESE_GRSMantenimiento {
 		PuertoSerie*p;
 		unsigned select;
 		double CONT,CONTT;
-		bool v,v1,esperand;
+		bool v,v1,esperand,bytBool;
+		char byt;
 		int contt;
 	private: System::Windows::Forms::Button^  button3;
 	private: System::Windows::Forms::Label^  label4;
@@ -44,6 +45,7 @@ namespace ESE_GRSMantenimiento {
 		{	
 			CONT=CONTT=contt=select=0;\
 				v=v1=esperand=false;
+			bytBool=false;
 			p=new PuertoSerie();
 			InitializeComponent();
 			//
@@ -481,18 +483,42 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 					 esperand=true;
 					 }
 
+				 unsigned aa=strlen(a);
 
-			 unsigned aa=strlen(a);
-			 if(aa%2!=0)
-				 {
-					 
-					 System::Windows::Forms::MessageBox::Show(gcnew String(Convert::ToString(strlen(a))+"::Existen errores a la hora de leer el contenido del puerto serie\nAsegurese de estar conectando el despositivo adecuado para este Mantenimiento"));
-					 timer1->Enabled=false;
-					 disable();
-					 return;
-				 }
+             if(bytBool)
+			         {
+						
+					 char*newc=new char[aa+2];
+				     newc[aa+1]=0;
+					 newc[0]=a[0];
+				     newc[1]=byt;
+				     for(unsigned i=1;i<aa;i++)
+					     newc[i+1]=a[i];
+				     delete a;
+				     a=newc;
+				     aa=strlen(a);
+				     bytBool=false;
+					 listBox1->Items->Add("Adj:"+gcnew String(ToBinary(a[1]))+"-"+gcnew String(ToBinary(a[0])));
+			        }
+			  if(aa%2!=0)
+			       {
+				     if(!bytBool)
+				        {
+						byt=a[aa-1];
+				        a[aa-1]=0;
+				        aa=strlen(a);
+				        bytBool=true;
+						 listBox1->Items->Add(gcnew String(ToBinary(byt))+"Esperando Adj");
+				        }
+			       }
+			 
+			
 
 			
+
+
+
+
 		    for(unsigned i=0;i<aa;i+=2)
 			   {
 				  contt++;
